@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Gesture System</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+        #ui { position: absolute; top: 20px; left: 20px; color: #0f0; z-index: 10; pointer-events: none; text-shadow: 0 0 5px #000; }
+        #debug-video { position: absolute; bottom: 10px; right: 10px; width: 180px; height: 135px; border: 2px solid #333; border-radius: 10px; opacity: 0.5; }
+        .hint { color: #fff; font-size: 0.9em; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h2 id="gesture-name">System Ready</h2>
+        <div class="hint">✊ Fist -> <b>PUNCH / COMPRESSION</b></div>
+        <div class="hint">✌️ Peace -> <b>HEART SHAPE</b></div>
+        <div class="hint">🖐️ Open -> <b>GALAXY / RESET</b></div>
+    </div>
+    <video id="debug-video" autoplay playsinline></video>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <script>
+        // --- CONFIGURATION ---
+        let scene, camera, renderer, particles;
+        const count = 10000;
+        let positions, targetPositions, colors;
+        let currentMode = 'galaxy';
+
+        // --- 1. INITIALIZE THREE.JS ---
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.z = 6;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            const geo = new THREE.BufferGeometry();
+            positions = new Float32Array(count * 3);
+            targetPositions = new Float32Array(count * 3);
+            colors = new Float32Array(count * 3);
+
+            for(let i=0; i<count*3; i++) {
+                positions[i] = (Math.random()-0.5) * 15;
+                targetPositions[i] = positions[i];
+            }
+
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const mat = new THREE.PointsMaterial({
+                size: 0.04,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+
+            particles = new THREE.Points(geo, mat);
+            scene.add(particles);
+        }
+
+        // --- 2. SHAPE MATH FUNCTIONS ---
+        function setTargetShape(mode) {
+            if (currentMode === mode && mode !== 'punch') return; 
+            currentMode = mode;
+            document.getElementById('gesture-name').innerText = mode.toUpperCase();
+
+            for (let i = 0; i < count; i++) {
+                const i3 = i * 3;
+                let x, y, z;
+
+                if (mode === 'heart') {
+                    const t = Math.random() * Math.PI * 2;
+                    x = 0.2 * (16 * Math.pow(Math.sin(t), 3));
+                    y = 0.2 * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                    z = (Math.random() - 0.5) * 0.5;
+                    colors[i3] = 1; colors[i3+1] = 0.2; colors[i3+2] = 0.5; // Pinkish
+                } 
+                else if (mode === 'punch') {
+                    // All particles rush to a small dense sphere in center
+                    const r = Math.random() * 0.5;
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.random() * Math.PI;
+                    x = r * Math.sin(phi) * Math.cos(theta);
+                    y = r * Math.sin(phi) * Math.sin(theta);
+                    z = r * Math.cos(phi);
+                    colors[i3] = 1; colors[i3+1] = 0.1; colors[i3+2] = 0.1; // Hot Red
+                }
+                else { // Galaxy / Default
+                    const angle = i * 0.1;
+                    const radius = i * 0.001 * 5;
+                    x = Math.cos(angle) * radius + (Math.random()-0.5);
+                    y = Math.sin(angle) * radius + (Math.random()-0.5);
+                    z = (Math.random()-0.5) * 2;
+                    colors[i3] = 0.2; colors[i3+1] = 0.5; colors[i3+2] = 1; // Blueish
+                }
+
+                targetPositions[i3] = x;
+                targetPositions[i3+1] = y;
+                targetPositions[i3+2] = z;
+            }
+            particles.geometry.attributes.color.needsUpdate = true;
+        }
+
+        // --- 3. HAND TRACKING & GESTURE LOGIC ---
+        const hands = new Hands({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`});
+        hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.6 });
+
+        hands.onResults((results) => {
+            if (results.multiHandLandmarks && results.multiHandLandmarks[0]) {
+                const lm = results.multiHandLandmarks[0];
+
+                // Check for Fist (Punch) - All fingers down
+                const isFist = lm[8].y > lm[6].y && lm[12].y > lm[10].y && lm[16].y > lm[14].y;
+                // Check for Peace (Heart) - Index and Middle up
+                const isPeace = lm[8].y < lm[6].y && lm[12].y < lm[10].y && lm[16].y > lm[14].y;
+
+                if (isFist) setTargetShape('punch');
+                else if (isPeace) setTargetShape('heart');
+                else setTargetShape('galaxy');
+
+                // Dynamic Rotation based on Hand Position
+                particles.rotation.y = (lm[0].x - 0.5) * 4;
+                particles.rotation.x = (lm[0].y - 0.5) * 2;
+            }
+        });
+
+        const videoElement = document.getElementById('debug-video');
+        const cam = new Camera(videoElement, {
+            onFrame: async () => { await hands.send({image: videoElement}); },
+            width: 640, height: 480
+        });
+        cam.start();
+
+        // --- 4. ANIMATION LOOP ---
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const posAttr = particles.geometry.attributes.position;
+            for (let i = 0; i < count * 3; i++) {
+                // Lerp factor: 0.05 is slow/smooth, 0.2 is snappy
+                let lerpSpeed = (currentMode === 'punch') ? 0.2 : 0.08;
+                posAttr.array[i] += (targetPositions[i] - posAttr.array[i]) * lerpSpeed;
+                
+                // Add a little "jitter" if it's a punch to show energy
+                if (currentMode === 'punch') {
+                    posAttr.array[i] += (Math.random() - 0.5) * 0.05;
+                }
+            }
+            posAttr.needsUpdate = true;
+            renderer.render(scene, camera);
+        }
+
+        initThree();
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
