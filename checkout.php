@@ -2,6 +2,28 @@
     <?php 
 include 'config/db_connect.php'; 
 include 'header.php'; 
+
+// Fetch last order details for auto-fill
+$firstname = $lastname = $companyname = $country = $address1 = $address2 = $city = $state = $zipcode = $phone = $email = "";
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $last_order_sql = "SELECT * FROM orders WHERE user_id = '$user_id' ORDER BY created_at DESC LIMIT 1";
+    $last_order_res = $conn->query($last_order_sql);
+    if ($last_order_res && $last_order_res->num_rows > 0) {
+        $ord = $last_order_res->fetch_assoc();
+        $firstname = $ord['firstname'];
+        $lastname = $ord['lastname'];
+        $companyname = $ord['companyname'];
+        $country = $ord['country'];
+        $address1 = $ord['address1'];
+        $address2 = $ord['address2'];
+        $city = $ord['city'];
+        $state = $ord['state'];
+        $zipcode = $ord['zipcode'];
+        $phone = $ord['phone'];
+        $email = $ord['email'];
+    }
+}
 ?>
 
     <main>
@@ -29,74 +51,74 @@ include 'header.php';
                             <!-- first name -->
                             <div class="form-group">
                                 <label for="firstname">First Name*</label>
-                                <input type="text" name="firstname" id="firstname" placeholder="Enter Your First Name">
+                                <input type="text" name="firstname" id="firstname" placeholder="Enter Your First Name" value="<?php echo htmlspecialchars($firstname); ?>">
                             </div>
 
                             <!-- last name -->
                             <div class="form-group">
                                 <label for="lastname">Last Name*</label>
-                                <input type="text" name="lastname" id="lastname" placeholder="Enter Your First Name">
+                                <input type="text" name="lastname" id="lastname" placeholder="Enter Your First Name" value="<?php echo htmlspecialchars($lastname); ?>">
                             </div>
 
                             <!-- company name -->
                             <div class="form-group">
                                 <label for="companyname">Company Name</label>
-                                <input type="text" name="companyname" id="companyname" placeholder="Enter Your Company Name">
+                                <input type="text" name="companyname" id="companyname" placeholder="Enter Your Company Name" value="<?php echo htmlspecialchars($companyname); ?>">
                             </div>
 
                             <!-- country -->
                             <div class="form-group ul-checkout-country-wrapper">
                                 <label for="ul-checkout-country">Country*</label>
                                 <select name="country" id="ul-checkout-country">
-                                    <option data-placeholder="true">Select Country</option>
-                                    <option value="2">United States</option>
-                                    <option value="3">United Kingdom</option>
-                                    <option value="4">Germany</option>
-                                    <option value="5">France</option>
-                                    <option value="6">India</option>
+                                    <option value="" disabled <?php echo empty($country) ? 'selected' : ''; ?>>Select Country</option>
+                                    <option value="2" <?php echo $country == '2' ? 'selected' : ''; ?>>United States</option>
+                                    <option value="3" <?php echo $country == '3' ? 'selected' : ''; ?>>United Kingdom</option>
+                                    <option value="4" <?php echo $country == '4' ? 'selected' : ''; ?>>Germany</option>
+                                    <option value="5" <?php echo $country == '5' ? 'selected' : ''; ?>>France</option>
+                                    <option value="6" <?php echo $country == '6' ? 'selected' : ''; ?>>India</option>
                                 </select>
                             </div>
 
                             <!-- address 1 -->
                             <div class="form-group">
                                 <label for="address1">Street Address*</label>
-                                <input type="text" name="address1" id="address1" placeholder="1837 E Homer M Adams Pkwy">
+                                <input type="text" name="address1" id="address1" placeholder="1837 E Homer M Adams Pkwy" value="<?php echo htmlspecialchars($address1); ?>">
                             </div>
 
                             <!-- address 2 -->
                             <div class="form-group">
                                 <label for="address2">Address 2*</label>
-                                <input type="text" name="address2" id="address2" placeholder="1837 E Homer M Adams Pkwy">
+                                <input type="text" name="address2" id="address2" placeholder="1837 E Homer M Adams Pkwy" value="<?php echo htmlspecialchars($address2); ?>">
                             </div>
 
                             <!-- city -->
                             <div class="form-group">
                                 <label for="city">City or Town*</label>
-                                <input type="text" name="city" id="city" placeholder="Enter Your City or Town">
+                                <input type="text" name="city" id="city" placeholder="Enter Your City or Town" value="<?php echo htmlspecialchars($city); ?>">
                             </div>
 
                             <!-- state -->
                             <div class="form-group">
                                 <label for="state">State*</label>
-                                <input type="text" name="state" id="state" placeholder="Enter Your State">
+                                <input type="text" name="state" id="state" placeholder="Enter Your State" value="<?php echo htmlspecialchars($state); ?>">
                             </div>
 
                             <!-- postcode -->
                             <div class="form-group">
                                 <label for="zipcode">ZIP Code*</label>
-                                <input type="text" name="zipcode" id="zipcode" placeholder="Enter Your Postcode">
+                                <input type="text" name="zipcode" id="zipcode" placeholder="Enter Your Postcode" value="<?php echo htmlspecialchars($zipcode); ?>">
                             </div>
 
                             <!-- phone -->
                             <div class="form-group">
                                 <label for="phone">Phone*</label>
-                                <input type="text" name="phone" id="phone" placeholder="Enter Your Phone Number">
+                                <input type="text" name="phone" id="phone" placeholder="Enter Your Phone Number" value="<?php echo htmlspecialchars($phone); ?>">
                             </div>
 
                             <!-- email -->
                             <div class="form-group col-lg-12">
                                 <label for="email">Email Address*</label>
-                                <input type="email" name="email" id="email" placeholder="Enter Your Email">
+                                <input type="email" name="email" id="email" placeholder="Enter Your Email" value="<?php echo htmlspecialchars($email); ?>">
                             </div>
                         </div>
 
@@ -189,6 +211,32 @@ include 'header.php';
         e.preventDefault();
         
         var payBtn = document.getElementById('payBtn');
+
+        // Validation Logic
+        var requiredFields = ['firstname', 'lastname', 'ul-checkout-country', 'address1', 'city', 'state', 'zipcode', 'phone', 'email'];
+        var isValid = true;
+        
+        for (var i = 0; i < requiredFields.length; i++) {
+            var field = document.getElementById(requiredFields[i]);
+            if (!field.value.trim() || field.value === '') {
+                isValid = false;
+                field.style.border = '1px solid red';
+                field.focus();
+                // We focus on the first invalid field
+                if(i > 0) { // Keep focus on the first one found
+                     // Actually, iterating forward, the last one will be focused if we don't break. 
+                     // Improved logic: find first invalid, focus and break.
+                }
+            } else {
+                field.style.border = '1px solid #e5e5e5'; // Reset to default style (assuming default is this or similar)
+            }
+        }
+        
+        if (!isValid) {
+            alert('Please fill in all required fields marked with *');
+            return;
+        }
+
         payBtn.disabled = true;
         payBtn.innerHTML = 'Processing...';
 
@@ -263,5 +311,5 @@ include 'header.php';
         });
     });
     </script>
-
+    
   <?php include 'footer.php'; ?>

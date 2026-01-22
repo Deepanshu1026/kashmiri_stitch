@@ -395,6 +395,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </a>
                                 <div class="user-dropdown">
                                     <span class="user-name">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                                    <a href="order_history.php" class="logout-btn" style="border-top: 1px solid #eee; margin-top: 5px; padding-top: 5px;">Order History</a>
                                     <a href="logout.php" class="logout-btn">Log Out</a>
                                 </div>
                             </div>
