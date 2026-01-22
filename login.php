@@ -4,9 +4,34 @@
 session_start();
 include 'config/db_connect.php';
 
+// Store redirect URL from Referer if available and safe
+if (!isset($_SESSION['redirect_url']) && isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+    $referer = $_SERVER['HTTP_REFERER'];
+    $parsed_url = parse_url($referer);
+    
+    // Debug logging
+    file_put_contents('debug_log.txt', "Referer: " . $referer . "\nHost: " . (isset($parsed_url['host']) ? $parsed_url['host'] : 'unset') . "\nServer Host: " . $_SERVER['HTTP_HOST'] . "\n", FILE_APPEND);
+
+    // Only redirect if it's the same host and not login/signup page
+    // Relaxed check: just check if host is set (for localhost usually fine) OR matches
+    if (isset($parsed_url['host']) && ($parsed_url['host'] === $_SERVER['HTTP_HOST'] || $_SERVER['HTTP_HOST'] === 'localhost')) {
+        $path = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+        $page = basename($path);
+        
+        if ($page !== 'login.php' && $page !== 'signup.php') {
+             $_SESSION['redirect_url'] = $referer;
+             file_put_contents('debug_log.txt', "Set Redirect: " . $referer . "\n", FILE_APPEND);
+        }
+    }
+}
+
+
+// Redirect if already logged in
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    $redirect_url = isset($_SESSION['redirect_url']) ? $_SESSION['redirect_url'] : "index.php";
+    unset($_SESSION['redirect_url']);
+    header("Location: " . $redirect_url);
     exit();
 }
 
@@ -24,7 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['firstname'];
-            header("Location: index.php");
+
+            
+            $redirect_location = "index.php";
+            if(isset($_SESSION['redirect_url'])) {
+                $redirect_location = $_SESSION['redirect_url'];
+                unset($_SESSION['redirect_url']);
+            }
+            header("Location: " . $redirect_location);
             exit();
         } else {
             $error = "Invalid password!";
