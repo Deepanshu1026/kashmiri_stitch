@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="assets/vendor/slim-select/slimselect.css">
     <link rel="stylesheet" href="assets/vendor/animate-wow/animate.min.css">
-
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <!-- custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
