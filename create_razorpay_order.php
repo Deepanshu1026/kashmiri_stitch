@@ -16,6 +16,13 @@ try {
 
     $user_id = $_SESSION['user_id'];
 
+    // Validate User Exists
+    $uChk = $conn->query("SELECT id FROM users WHERE id='$user_id'");
+    if($uChk->num_rows == 0){
+        session_destroy();
+        throw new Exception('User record not found. Please relogin.');
+    }
+
     // 1. Calculate Total Amount from Cart
     $sql = "SELECT c.quantity, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = '$user_id'";
     $result = $conn->query($sql);

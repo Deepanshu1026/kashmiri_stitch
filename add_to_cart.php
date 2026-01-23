@@ -9,6 +9,17 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user_id'];
+    
+    // Check if user actually exists in DB (Handle Stale Session)
+    $stmtUser = $conn->prepare("SELECT id FROM users WHERE id = ?");
+    $stmtUser->bind_param("i", $user_id);
+    $stmtUser->execute();
+    if ($stmtUser->get_result()->num_rows === 0) {
+        session_destroy();
+        header("Location: login.php?error=session_expired");
+        exit();
+    }
+
     $product_id = $_POST['product_id'];
     $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 

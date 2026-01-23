@@ -10,3 +10,75 @@ Referer: http://localhost/kashmiri_stitch/index.php
 Host: localhost
 Server Host: localhost
 Set Redirect: http://localhost/kashmiri_stitch/index.php
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=2
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Kids
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Man
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Man
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Man
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Man
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Man
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Man
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Man
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Man
+Referer: http://localhost/kashmiri_stitch/shop.php?category=Man
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop.php?category=Man
+Referer: http://localhost/kashmiri_stitch/shop-details.php?id=10
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=10

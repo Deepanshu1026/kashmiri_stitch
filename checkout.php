@@ -299,6 +299,19 @@ if (isset($_SESSION['user_id'])) {
             var rzp1 = new Razorpay(options);
             rzp1.on('payment.failed', function (response){
                 alert('Payment Failed: ' + response.error.description);
+                
+                // Notify server about failure to send email
+                var failData = new FormData();
+                failData.append('razorpay_order_id', data.order_id);
+                var payment_id = (response.error.metadata && response.error.metadata.payment_id) ? response.error.metadata.payment_id : '';
+                failData.append('razorpay_payment_id', payment_id);
+                failData.append('error_description', response.error.description);
+
+                fetch('failed_payment.php', {
+                    method: 'POST',
+                    body: failData
+                });
+
                 payBtn.disabled = false;
                 payBtn.innerHTML = 'Place Your Order';
             });
