@@ -4,7 +4,7 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'kashmiri_stitch');
+define('DB_NAME', 'kashmiristitch');
 // Database Credentials
 // define('DB_SERVER', 'srv1947.hstgr.io');
 // define('DB_USERNAME', 'u926373354_kashmiri');

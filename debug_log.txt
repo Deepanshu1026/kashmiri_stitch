@@ -82,3 +82,15 @@ Referer: http://localhost/kashmiri_stitch/shop-details.php?id=10
 Host: localhost
 Server Host: localhost
 Set Redirect: http://localhost/kashmiri_stitch/shop-details.php?id=10
+Referer: http://localhost/kashmiri_stitch/
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/
+Referer: http://localhost/kashmiri_stitch/
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/
+Referer: http://localhost/kashmiri_stitch/index.php
+Host: localhost
+Server Host: localhost
+Set Redirect: http://localhost/kashmiri_stitch/index.php
