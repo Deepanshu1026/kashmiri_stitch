@@ -614,4 +614,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     });
 
+    // Initialize WOW.js for scroll animations
+    if (typeof WOW !== 'undefined') {
+        new WOW().init();
+    }
 });

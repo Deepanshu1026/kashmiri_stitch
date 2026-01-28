@@ -126,7 +126,7 @@
                     <div
                         class="row row-cols-lg-3 row-cols-md-3 row-cols-2 row-cols-xxs-1 ul-bs-row justify-content-center">
                         <!-- single category -->
-                        <div class="col">
+                        <div class="col wow fadeInUp" data-wow-delay="0s">
                             <a class="ul-category" href="shop.php?category=Woman">
                                 <div class="ul-category-img">
                                     <img src="assets/img/category_women.png" alt="Category Image">
@@ -141,7 +141,7 @@
                         </div>
 
                         <!-- single category -->
-                        <div class="col">
+                        <div class="col wow fadeInUp" data-wow-delay="0.2s">
                             <a class="ul-category" href="shop.php?category=Man">
                                 <div class="ul-category-img">
                                     <img src="assets/img/category_men.png" alt="Category Image">
@@ -156,7 +156,7 @@
                         </div>
 
                         <!-- single category -->
-                        <div class="col">
+                        <div class="col wow fadeInUp" data-wow-delay="0.4s">
                             <a class="ul-category" href="shop.php?category=Kids">
                                 <div class="ul-category-img">
                                     <img src="assets/img/category_kids.png" alt="Category Image">
@@ -180,7 +180,7 @@
         <div class="ul-container">
             <section class="ul-products">
                 <div class="ul-inner-container">
-                    <div class="ul-section-heading">
+                    <div class="ul-section-heading wow fadeInUp">
                         <div class="left">
                             <span class="ul-section-sub-title">Summer collection</span>
                             <h2 class="ul-section-title">Shopping Every Day</h2>
@@ -195,7 +195,7 @@
                         <!-- 1st row -->
                         <div class="col-lg-3 col-md-4 col-12">
                             <!-- sub bannner -->
-                            <div class="ul-products-sub-banner">
+                            <div class="ul-products-sub-banner wow fadeInLeft">
                                 <div class="ul-products-sub-banner-img">
                                     <img src="assets/img/products-sub-banner-1.jpg" alt="Sub Banner Image">
                                 </div>
@@ -209,7 +209,7 @@
 
                         <div class="col-lg-9 col-md-8 col-12">
                             <!-- products grid -->
-                            <div class="swiper ul-products-slider-1">
+                            <div class="swiper ul-products-slider-1 wow fadeInRight" data-wow-delay="0.2s">
                                 <div class="swiper-wrapper">
                                     <?php
                                     $sql = "SELECT * FROM products ORDER BY created_at DESC LIMIT 5";
@@ -257,7 +257,7 @@
                         <!-- 2nd row -->
                         <div class="col-lg-3 col-md-4 col-12">
                             <!-- sub bannner -->
-                            <div class="ul-products-sub-banner">
+                            <div class="ul-products-sub-banner wow fadeInLeft">
                                 <div class="ul-products-sub-banner-img">
                                     <img src="assets/img/products-sub-banner-2.jpg" alt="Sub Banner Image">
                                 </div>
@@ -271,7 +271,7 @@
 
                         <div class="col-lg-9 col-md-8 col-12">
                             <!-- products grid -->
-                            <div class="swiper ul-products-slider-2">
+                            <div class="swiper ul-products-slider-2 wow fadeInRight" data-wow-delay="0.2s">
                                 <div class="swiper-wrapper">
                                     <?php
                                     $sql2 = "SELECT * FROM products ORDER BY RAND() LIMIT 5";
@@ -327,7 +327,7 @@
             <section class="ul-ad">
                 <div class="ul-inner-container">
                     <div class="ul-ad-content">
-                        <div class="ul-ad-txt">
+                        <div class="ul-ad-txt wow fadeInLeft">
                             <span class="ul-ad-sub-title">Trending Products</span>
                             <h2 class="ul-section-title">Get 30% Discount On All Hudis!</h2>
                             <div class="ul-ad-categories">
@@ -339,7 +339,7 @@
                             </div>
                         </div>
 
-                        <div class="ul-ad-img">
+                        <div class="ul-ad-img wow fadeInRight">
                             <img src="assets/img/ad-img.png" alt="Ad Image">
                         </div>
 
@@ -355,7 +355,7 @@
         <div class="ul-container">
             <section class="ul-products ul-most-selling-products">
                 <div class="ul-inner-container">
-                    <div class="ul-section-heading flex-lg-row flex-column text-md-start text-center">
+                    <div class="ul-section-heading flex-lg-row flex-column text-md-start text-center wow fadeInUp">
                         <div class="left">
                             <span class="ul-section-sub-title">most selling items</span>
                             <h2 class="ul-section-title">Top selling Categories This Week</h2>
@@ -374,7 +374,7 @@
 
                     <!-- products grid -->
                     <div
-                        class="ul-bs-row row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 ul-filter-products-wrapper">
+                        class="ul-bs-row row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 ul-filter-products-wrapper wow fadeInUp" data-wow-delay="0.3s">
                         <?php
                         $sql3 = "SELECT * FROM products ORDER BY RAND() LIMIT 12";
                         $result3 = $conn->query($sql3);
@@ -418,7 +418,7 @@
 
         <!-- VIDEO SECTION START -->
         <div class="ul-container">
-            <div class="ul-video">
+            <div class="ul-video wow zoomIn">
                 <div>
                     <img src="assets/img/video-banner.jpg" alt="Video Banner" class="ul-video-cover">
                 </div>
@@ -435,7 +435,7 @@
                 <div class="ul-inner-container">
                     <div class="row ul-bs-row row-cols-md-3 row-cols-sm-2 row-cols-1">
                         <!-- single sub banner -->
-                        <div class="col">
+                        <div class="col wow fadeInUp" data-wow-delay="0s">
                             <div class="ul-sub-banner ">
                                 <div class="ul-sub-banner-txt">
                                     <div class="top">
@@ -457,7 +457,7 @@
                         </div>
 
                         <!-- single sub banner -->
-                        <div class="col">
+                        <div class="col wow fadeInUp" data-wow-delay="0.2s">
                             <div class="ul-sub-banner ul-sub-banner--2">
                                 <div class="ul-sub-banner-txt">
                                     <div class="top">
@@ -479,7 +479,7 @@
                         </div>
 
                         <!-- single sub banner -->
-                        <div class="col">
+                        <div class="col wow fadeInUp" data-wow-delay="0.4s">
                             <div class="ul-sub-banner ul-sub-banner--3">
                                 <div class="ul-sub-banner-txt">
                                     <div class="top">
@@ -512,7 +512,7 @@
                 <div class="ul-flash-sale">
                     <div class="ul-inner-container">
                         <!-- heading -->
-                        <div class="ul-section-heading ul-flash-sale-heading">
+                        <div class="ul-section-heading ul-flash-sale-heading wow fadeInUp">
                             <div class="left">
                                 <span class="ul-section-sub-title">New Collection</span>
                                 <h2 class="ul-section-title">Trending Flash Sell</h2>
@@ -544,7 +544,7 @@
                         </div>
 
                         <!-- produtcs slider -->
-                        <div class="ul-flash-sale-slider swiper">
+                        <div class="ul-flash-sale-slider swiper wow fadeInUp" data-wow-delay="0.3s">
                             <div class="swiper-wrapper">
                                 <?php
                                 $flash_sql = "SELECT * FROM products ORDER BY RAND() LIMIT 4";
@@ -592,7 +592,7 @@
 
         <!-- REVIEWS SECTION START -->
         <section class="ul-reviews overflow-hidden">
-            <div class="ul-section-heading text-center justify-content-center">
+            <div class="ul-section-heading text-center justify-content-center wow fadeInUp">
                 <div>
                     <span class="ul-section-sub-title">Customer Reviews</span>
                     <h2 class="ul-section-title">Product Reviews</h2>
@@ -602,7 +602,7 @@
             </div>
 
             <!-- slider -->
-            <div class="ul-reviews-slider swiper">
+            <div class="ul-reviews-slider swiper wow fadeInUp" data-wow-delay="0.2s">
                 <div class="swiper-wrapper">
                     <!-- single review -->
                     <div class="swiper-slide">
@@ -643,7 +643,7 @@
             <section class="ul-nwsltr-subs">
                 <div class="ul-inner-container">
                     <!-- heading -->
-                    <div class="ul-section-heading justify-content-center text-center">
+                    <div class="ul-section-heading justify-content-center text-center wow fadeInUp">
                         <div>
                             <span class="ul-section-sub-title text-white">GET NEWSLETTER</span>
                             <h2 class="ul-section-title text-white text-white">Sign Up to Newsletter</h2>
@@ -651,7 +651,7 @@
                     </div>
 
                     <!-- form -->
-                    <div class="ul-nwsltr-subs-form-wrapper">
+                    <div class="ul-nwsltr-subs-form-wrapper wow fadeInUp" data-wow-delay="0.3s">
                         <div class="icon"><i class="flaticon-airplane"></i></div>
                         <form action="#" class="ul-nwsltr-subs-form">
                             <input type="email" name="nwsltr-subs-email" id="nwsltr-subs-email"
@@ -670,7 +670,7 @@
             <section class="ul-blogs">
                 <div class="ul-inner-container">
                     <!-- heading -->
-                    <div class="ul-section-heading">
+                    <div class="ul-section-heading wow fadeInUp">
                         <div class="left">
                             <span class="ul-section-sub-title">News & Blog</span>
                             <h2 class="ul-section-title">Latest News & Blog</h2>
@@ -685,7 +685,7 @@
                     <!-- blog grid -->
                     <div class="row ul-bs-row row-cols-md-3 row-cols-2 row-cols-xxs-1">
                         <!-- single blog -->
-                        <div class="col">
+                        <div class="col wow fadeInUp">
                             <div class="ul-blog">
                                 <div class="ul-blog-img">
                                     <img src="assets/img/blog-1.jpg" alt="Article Image">
@@ -723,7 +723,7 @@
 
 
         <!-- GALLERY SECTION START -->
-        <div class="ul-gallery overflow-hidden mx-auto">
+        <div class="ul-gallery overflow-hidden mx-auto wow zoomIn">
             <div class="ul-gallery-slider swiper">
                 <div class="swiper-wrapper">
                     <!-- single gallery item -->
