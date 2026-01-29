@@ -122,3 +122,11 @@ Referer: http://localhost/kashmiri_stitch/index.php
 Host: localhost
 Server Host: localhost
 Set Redirect: http://localhost/kashmiri_stitch/index.php
+Referer: http://192.168.1.14/kashmiri_stitch/index.php
+Host: 192.168.1.14
+Server Host: 192.168.1.14
+Set Redirect: http://192.168.1.14/kashmiri_stitch/index.php
+Referer: http://192.168.1.14/kashmiri_stitch/shop-details.php?id=8
+Host: 192.168.1.14
+Server Host: 192.168.1.14
+Set Redirect: http://192.168.1.14/kashmiri_stitch/shop-details.php?id=8

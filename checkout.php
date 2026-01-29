@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="ul-cart-container">
             <h3 class="ul-checkout-title">Billing Details</h3>
             <form action="#" class="ul-checkout-form" id="checkoutForm">
-                <div class="row ul-bs-row row-cols-2 row-cols-xxs-1">
+                <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
                     <!-- left side / checkout form -->
                     <div class="col">
                         <div class="row row-cols-lg-2 row-cols-1 ul-bs-row">

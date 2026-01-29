@@ -2,3 +2,7 @@
 {"message":"API Key is not enabled","code":"unauthorized"}
 
 
+[2026-01-29 08:54:37] To: bishtdepanshu321@gmail.com | Subject: Order Confirmation - Kashmiri Stitch | Error: [401] Client error: `POST https://api.sendinblue.com/v3/smtp/email` resulted in a `401 Unauthorized` response:
+{"message":"API Key is not enabled","code":"unauthorized"}
+
+

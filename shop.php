@@ -3,6 +3,26 @@ $page_title = "Shop";
 include 'config/db_connect.php';
 include 'header.php';
 ?>
+?>
+<style>
+    /* Force product actions to be visible by default */
+    .ul-product-actions.active-visible {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(-50%) translateX(-50%) !important;
+        bottom: 40% !important; /* Adjust based on original design, usually centered or bottom */
+        left: 50% !important;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .ul-product:hover .ul-product-actions.active-visible {
+        /* Maintain visibility on hover */
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(-50%) translateX(-50%) !important;
+    }
+</style>
 
     <main>
         <!-- BREADCRUMB SECTION START -->
@@ -130,17 +150,24 @@ include 'header.php';
 
                                             <div class="ul-product-img">
                                                 <img src="<?php echo $row['image']; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
-
-                                                <div class="ul-product-actions">
-                                                    <a href="shop-details.php?id=<?php echo $row['id']; ?>"><button><i class="flaticon-shopping-bag"></i></button></a>
-                                                    <a href="shop-details.php?id=<?php echo $row['id']; ?>"><i class="flaticon-hide"></i></a>
-                                                    <button class="add-to-wishlist" data-pid="<?php echo $row['id']; ?>"><i class="flaticon-heart"></i></button>
-                                                </div>
                                             </div>
 
                                             <div class="ul-product-txt">
                                                 <h4 class="ul-product-title"><a href="shop-details.php?id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['title']); ?></a></h4>
                                                 <h5 class="ul-product-category"><a href="shop.php?category=<?php echo urlencode($row['category']); ?>"><?php echo htmlspecialchars($row['category']); ?></a></h5>
+                                            </div>
+
+                                            <div class="ul-product-actions-static" style="display: flex; gap: 10px; margin-top: 15px;">
+                                                <a href="shop-details.php?id=<?php echo $row['id']; ?>" class="ul-btn-action" style="
+                                                    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+                                                    border: 1px solid #eee; color: #333; transition: 0.3s; background: #fff;">
+                                                    <i class="flaticon-shopping-bag"></i>
+                                                </a>
+                                                <button class="add-to-wishlist ul-btn-action" data-pid="<?php echo $row['id']; ?>" style="
+                                                    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+                                                    border: 1px solid #eee; color: #333; transition: 0.3s; background: #fff;">
+                                                    <i class="flaticon-heart"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
