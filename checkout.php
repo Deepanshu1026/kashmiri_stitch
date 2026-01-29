@@ -280,7 +280,7 @@ if (isset($_SESSION['user_id'])) {
                     .then(resData => {
                         console.log('Verification Response:', resData); // Debugging Log
                         if(resData.status === 'success'){
-                            alert('Payment Successful!');
+                            // alert('Payment Successful!'); // Removed as per request
                             window.location.href = 'order_history.php';
                         } else {
                             alert('Payment Verification Failed: ' + resData.message);

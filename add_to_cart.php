@@ -22,6 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $product_id = $_POST['product_id'];
     $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+    $size = isset($_POST['size']) ? $_POST['size'] : '';
+    $color = isset($_POST['color']) ? $_POST['color'] : '';
 
     if ($quantity < 1) $quantity = 1;
 
@@ -31,16 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Product not found.");
     }
 
-    // Check if item already in cart
-    $checkCart = $conn->query("SELECT * FROM cart WHERE user_id='$user_id' AND product_id='$product_id'");
+    // Check if item already in cart (same product, size, and color)
+    $sql_check = "SELECT * FROM cart WHERE user_id='$user_id' AND product_id='$product_id' AND size='$size' AND color='$color'";
+    $checkCart = $conn->query($sql_check);
     
     if ($checkCart->num_rows > 0) {
         // Update quantity
-        $conn->query("UPDATE cart SET quantity = quantity + $quantity WHERE user_id='$user_id' AND product_id='$product_id'");
+        $conn->query("UPDATE cart SET quantity = quantity + $quantity WHERE user_id='$user_id' AND product_id='$product_id' AND size='$size' AND color='$color'");
     } else {
         // Insert new item
-        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
-        $stmt->bind_param("iii", $user_id, $product_id, $quantity);
+        $stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity, size, color) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiss", $user_id, $product_id, $quantity, $size, $color);
         $stmt->execute();
     }
 

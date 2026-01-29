@@ -144,13 +144,13 @@ try {
             // 5. Insert Cart Items into order_items
             // We need to fetch cart items again or reset pointer if we already fetched them. 
             // In step 1 we calculated total, let's fetch details now.
-            $cart_sql = "SELECT c.quantity, p.id as p_id, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = '$user_id'";
+            $cart_sql = "SELECT c.quantity, c.size, c.color, p.id as p_id, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = '$user_id'";
             $cart_res_items = $conn->query($cart_sql);
             
             if ($cart_res_items && $cart_res_items->num_rows > 0) {
-                $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+                $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price, size, color) VALUES (?, ?, ?, ?, ?, ?)");
                 while($c_item = $cart_res_items->fetch_assoc()){
-                    $item_stmt->bind_param("iiid", $new_order_id, $c_item['p_id'], $c_item['quantity'], $c_item['price']);
+                    $item_stmt->bind_param("iiidss", $new_order_id, $c_item['p_id'], $c_item['quantity'], $c_item['price'], $c_item['size'], $c_item['color']);
                     $item_stmt->execute();
                 }
             }
