@@ -142,32 +142,46 @@ include 'header.php';
                                     ?>
                                     <!-- product card -->
                                     <div class="col">
-                                        <div class="ul-product">
-                                            <div class="ul-product-heading">
-                                                <span class="ul-product-price">₹<?php echo $row['price']; ?></span>
-                                                <!-- <span class="ul-product-discount-tag">25% Off</span> -->
+                                        <div class="ul-product-card-new" style="border: 1px solid #e0e0e0; border-radius: 15px; padding: 15px; height: 100%; display: flex; flex-direction: column; background: #fff; transition: 0.3s;">
+                                            <!-- Price at top left -->
+                                            <div style="font-size: 16px; font-weight: 700; color: #000; margin-bottom: 10px;">
+                                                ₹<?php echo $row['price']; ?>
                                             </div>
 
-                                            <div class="ul-product-img">
-                                                <img src="<?php echo $row['image']; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
-                                            </div>
-
-                                            <div class="ul-product-txt">
-                                                <h4 class="ul-product-title"><a href="shop-details.php?id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['title']); ?></a></h4>
-                                                <h5 class="ul-product-category"><a href="shop.php?category=<?php echo urlencode($row['category']); ?>"><?php echo htmlspecialchars($row['category']); ?></a></h5>
-                                            </div>
-
-                                            <div class="ul-product-actions-static" style="display: flex; gap: 10px; margin-top: 15px;">
-                                                <a href="shop-details.php?id=<?php echo $row['id']; ?>" class="ul-btn-action" style="
-                                                    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-                                                    border: 1px solid #eee; color: #333; transition: 0.3s; background: #fff;">
-                                                    <i class="flaticon-shopping-bag"></i>
+                                            <!-- Image -->
+                                            <div style="width: 100%; margin-bottom: 15px; position: relative; overflow: hidden; border-radius: 5px;">
+                                                <a href="shop-details.php?id=<?php echo $row['id']; ?>">
+                                                    <img src="<?php echo $row['image']; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;">
                                                 </a>
-                                                <button class="add-to-wishlist ul-btn-action" data-pid="<?php echo $row['id']; ?>" style="
-                                                    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-                                                    border: 1px solid #eee; color: #333; transition: 0.3s; background: #fff;">
-                                                    <i class="flaticon-heart"></i>
-                                                </button>
+                                            </div>
+
+                                            <!-- Content -->
+                                            <div style="margin-top: auto;">
+                                                <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 5px; line-height: 1.3;">
+                                                    <a href="shop-details.php?id=<?php echo $row['id']; ?>" style="color: #000; text-decoration: none;"><?php echo htmlspecialchars($row['title']); ?></a>
+                                                </h4>
+                                                <div style="font-size: 12px; font-weight: 600; color: #EF2853; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px;">
+                                                    <?php echo htmlspecialchars($row['category']); ?>
+                                                </div>
+
+                                                <!-- Buttons -->
+                                                <div style="display: flex; gap: 10px;">
+                                                    <a href="shop-details.php?id=<?php echo $row['id']; ?>" style="
+                                                        width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+                                                        border: 1px solid #e5e5e5; color: #555; transition: all 0.3s ease; background: #fff; text-decoration: none;"
+                                                        onmouseover="this.style.borderColor='#EF2853'; this.style.color='#EF2853';"
+                                                        onmouseout="this.style.borderColor='#e5e5e5'; this.style.color='#555';">
+                                                        <i class="flaticon-shopping-bag" style="font-size: 16px;"></i>
+                                                    </a>
+                                                    
+                                                    <button class="add-to-wishlist" data-pid="<?php echo $row['id']; ?>" style="
+                                                        width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+                                                        border: 1px solid #e5e5e5; color: #555; transition: all 0.3s ease; background: #fff; cursor: pointer;"
+                                                        onmouseover="this.style.borderColor='#EF2853'; this.style.color='#EF2853';"
+                                                        onmouseout="this.style.borderColor='#e5e5e5'; this.style.color='#555';">
+                                                        <i class="flaticon-heart" style="font-size: 16px;"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
