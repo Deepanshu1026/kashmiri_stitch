@@ -71,6 +71,21 @@ try {
          throw new Exception('Failed to create orders table: ' . $conn->error);
     }
 
+    // Create Order Items Table
+    $sql_items_table = "CREATE TABLE IF NOT EXISTS order_items (
+        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        order_id INT(6) UNSIGNED NOT NULL,
+        product_id INT(6) UNSIGNED NOT NULL,
+        quantity INT(6) NOT NULL,
+        price DECIMAL(10, 2) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id)
+    )";
+    if (!$conn->query($sql_items_table)) {
+        throw new Exception('Failed to create order_items table: ' . $conn->error);
+    }
+
     // 3. Create Order via Razorpay API using cURL
     $url = "https://api.razorpay.com/v1/orders";
 
@@ -124,6 +139,22 @@ try {
         $stmt->bind_param("isdsssssssssss", $user_id, $razorpay_order_id, $total_amount, $firstname, $lastname, $companyname, $country, $address1, $address2, $city, $state, $zipcode, $phone, $email);
         
         if($stmt->execute()) {
+            $new_order_id = $stmt->insert_id; // Get the auto-generated ID
+
+            // 5. Insert Cart Items into order_items
+            // We need to fetch cart items again or reset pointer if we already fetched them. 
+            // In step 1 we calculated total, let's fetch details now.
+            $cart_sql = "SELECT c.quantity, p.id as p_id, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = '$user_id'";
+            $cart_res_items = $conn->query($cart_sql);
+            
+            if ($cart_res_items && $cart_res_items->num_rows > 0) {
+                $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+                while($c_item = $cart_res_items->fetch_assoc()){
+                    $item_stmt->bind_param("iiid", $new_order_id, $c_item['p_id'], $c_item['quantity'], $c_item['price']);
+                    $item_stmt->execute();
+                }
+            }
+
             echo json_encode([
                 'key' => RAZORPAY_KEY_ID,
                 'amount' => $api_amount,

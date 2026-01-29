@@ -1,5 +1,8 @@
-<?php include 'config/db_connect.php'; ?>
-<?php include 'header.php'; ?>
+<?php
+$page_title = "Shop";
+include 'config/db_connect.php';
+include 'header.php';
+?>
 
     <main>
         <!-- BREADCRUMB SECTION START -->

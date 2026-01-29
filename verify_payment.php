@@ -105,6 +105,11 @@ if (isset($_POST['razorpay_payment_id']) && isset($_POST['razorpay_order_id']) &
 
                     $cart_items_html .= '</tbody></table>';
                 }
+                
+                // Get Internal Order ID
+                // Note: Items are already inserted in create_razorpay_order.php 
+                
+                // 3. Fetch Cart Items for Email BEFORE Clearing (Keep this for Email content)
 
                 // 4. Clear Cart
                 if(isset($_SESSION['user_id'])) {

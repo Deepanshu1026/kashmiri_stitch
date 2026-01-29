@@ -19,6 +19,7 @@ if ($conn->query($sql) === TRUE) {
 
 // Select database
 $conn->select_db(DB_NAME);
+$conn->query("SET time_zone = '+05:30'");
 
 // Create users table if not exists
 $sql = "CREATE TABLE IF NOT EXISTS users (

@@ -1,5 +1,8 @@
-<?php include 'config/db_connect.php'?>
-<?php include 'header.php'?>
+<?php
+$page_title = "Home";
+include 'config/db_connect.php';
+include 'header.php';
+?>
 
     <main>
         <!-- BANNER SECTION START -->

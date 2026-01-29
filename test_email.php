@@ -2,7 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Configure API key
-$config = SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
+$config = SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
 
 $apiInstance = new SendinBlue\Client\Api\EmailCampaignsApi(
     new GuzzleHttp\Client(),

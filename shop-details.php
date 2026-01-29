@@ -2,19 +2,32 @@
 
 
     <?php
-    include 'header.php';
     include 'config/db_connect.php';
 
     $product = null;
+    $cart_qty = 0;
     if(isset($_GET['id'])) {
         $id = $conn->real_escape_string($_GET['id']);
         $sql = "SELECT * FROM products WHERE id='$id'";
         $result = $conn->query($sql);
         if($result->num_rows > 0) {
             $product = $result->fetch_assoc();
+            $page_title = $product['title']; // Set page title
+        }
+
+        // Check cart quantity
+        if(isset($_SESSION['user_id'])){
+            $uid = $_SESSION['user_id'];
+            $c_sql = "SELECT quantity FROM cart WHERE user_id='$uid' AND product_id='$id'";
+            $c_res = $conn->query($c_sql);
+            if($c_res->num_rows > 0){
+                $cart_qty = $c_res->fetch_assoc()['quantity'];
+            }
         }
     }
     
+    include 'header.php'; // Include header AFTER setting title
+
     if(!$product) {
         echo "<div class='ul-container' style='padding:50px;'><h3 class='text-center'>Product Not Found</h3></div>";
         include 'footer.php';
@@ -160,6 +173,11 @@
                                             <button type="button" class="quantityDecreaseButton"><i class="flaticon-minus-sign"></i></button>
                                         </div>
                                     </form>
+                                    <?php if($cart_qty > 0): ?>
+                                        <div style="margin-top: 5px; font-size: 13px; color: #DC2626;">
+                                            <i class="flaticon-shopping-bag"></i> <?php echo $cart_qty; ?> already in cart
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
 
                                 <!-- product actions -->

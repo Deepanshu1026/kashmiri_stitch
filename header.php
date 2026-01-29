@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+date_default_timezone_set('Asia/Kolkata');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) . ' - Kashmiri Stitch' : 'Kashmiri Stitch'; ?></title>
 
     <!-- libraries CSS -->
     <link rel="stylesheet" href="assets/icon/flaticon_glamer.css">

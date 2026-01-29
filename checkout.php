@@ -281,9 +281,10 @@ if (isset($_SESSION['user_id'])) {
                         console.log('Verification Response:', resData); // Debugging Log
                         if(resData.status === 'success'){
                             alert('Payment Successful!');
-                            window.location.href = 'index.php';
+                            window.location.href = 'order_history.php';
                         } else {
                             alert('Payment Verification Failed: ' + resData.message);
+                            window.location.href = 'order_history.php';
                         }
                     });
                 },
@@ -310,10 +311,9 @@ if (isset($_SESSION['user_id'])) {
                 fetch('failed_payment.php', {
                     method: 'POST',
                     body: failData
+                }).then(() => {
+                    window.location.href = 'order_history.php';
                 });
-
-                payBtn.disabled = false;
-                payBtn.innerHTML = 'Place Your Order';
             });
             rzp1.open();
         })
