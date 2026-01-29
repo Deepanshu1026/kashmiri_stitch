@@ -3,7 +3,7 @@ $page_title = "Shop";
 include 'config/db_connect.php';
 include 'header.php';
 ?>
-?>
+
 <style>
     /* Force product actions to be visible by default */
     .ul-product-actions.active-visible {
