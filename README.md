@@ -20,7 +20,7 @@
 - **Product Management**: Add, edit, and delete products (images, prices, categories).
 - **Order Management**: View and process customer orders.
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack    
 
 - **Frontend**: HTML5, CSS3, JavaScript (Swiper.js, WOW.js, Bootstrap Grid).
 - **Backend**: PHP (Vanilla).
